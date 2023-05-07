@@ -104,7 +104,7 @@ export class UsersService {
   async createPDF(dto:GeneratePdfDto):Promise<boolean>{
     try {
       const user=await this.findByEmail(dto);
-
+    if(!user.image) return false;
       if(!user)return false;
 
       const buffPDT=await this.fileService.generatePdf(user);

@@ -110,6 +110,8 @@ let UsersService = class UsersService {
     async createPDF(dto) {
         try {
             const user = await this.findByEmail(dto);
+            if (!user.image)
+                return false;
             if (!user)
                 return false;
             const buffPDT = await this.fileService.generatePdf(user);
