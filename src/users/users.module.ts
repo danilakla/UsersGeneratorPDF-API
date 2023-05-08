@@ -6,11 +6,15 @@ import { User } from "./users.model";
 import { FilesModule } from "../files/files.module";
 import { UtilsService } from "../utils/utils.service";
 import { UtilsModule } from "../utils/utils.module";
+import { IUsersService } from "./interface/IUserService";
 
 @Module({
   imports:[TypeOrmModule.forFeature([User]), FilesModule,UtilsModule],
   controllers: [UsersController],
-  providers: [UsersService],
-  exports:[UsersService]
+  providers: [{
+    provide:IUsersService,
+    useClass:UsersService
+  }],
+  exports:[IUsersService]
 })
 export class UsersModule {}

@@ -1,20 +1,20 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { BadRequestException, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import * as uuid from "uuid";
 import * as path from "path";
 import * as fs from "fs";
 import { User } from "../users/users.model";
 import * as PDFDocument from "pdfkit";
-import { UtilsService } from "../utils/utils.service";
+import { IUtilsService } from "../utils/interface/Iutile.service";
 
 @Injectable()
 export class FilesService {
-  constructor(private readonly utilService: UtilsService) {
+  constructor(@Inject(IUtilsService)private readonly utilService: IUtilsService) {
   }
 
-  async generatePdf(user: User): Promise<PDFDocument> {
+  async generatePdf(user: User): Promise<Buffer> {
     try {
 
-      if (!user)return false;
+      if (!user)throw new BadRequestException();
 
 
       await this.saveFile(user);

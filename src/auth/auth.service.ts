@@ -1,13 +1,15 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UsersService } from "../users/users.service";
 import { CreateUserDto } from "../users/dto/create-user.dto";
 import { use } from "passport";
+import { IUsersService } from "../users/interface/IUserService";
+import { IUtilsService } from "../utils/interface/Iutile.service";
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    @Inject(IUsersService)  private usersService: IUsersService,
     private jwtService: JwtService
   ) {
   }

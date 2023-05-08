@@ -1,12 +1,13 @@
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Inject, Post, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { CreateUserDto } from "../users/dto/create-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { JwtAuthGuard } from "./guard/jwt-auth.guard";
+import { IAuthService } from "./interface/IAuthService";
 
 @Controller('auth')
 export class AuthController {
-  constructor(private  readonly authService:AuthService) {
+  constructor(@Inject(IAuthService) private  readonly authService:IAuthService) {
   }
 
   @Post("/login")

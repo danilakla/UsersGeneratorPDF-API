@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  Delete, Get,
+  Delete, Get, Inject,
   InternalServerErrorException,
   Param,
   Post, Put,
@@ -15,11 +15,13 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UsersService } from "./users.service";
 import { GeneratePdfDto } from "./dto/generate-pdf.dto";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
+import { IUsersService } from "./interface/IUserService";
+import { IFilesService } from "../files/interface/IFileService";
 
 @Controller("users")
 export class UsersController {
 
-  constructor(private readonly usersService: UsersService) {
+  constructor( @Inject(IUsersService)private readonly usersService: IUsersService) {
   }
 
 

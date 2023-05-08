@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import * as PDFDocument from "pdfkit";
+import { IUtilsService } from "./interface/Iutile.service";
 
 @Injectable()
-export class UtilsService {
+export class UtilsService implements IUtilsService {
 
   async convertPDFtoBuffer(doc:any):Promise<Buffer>{
 

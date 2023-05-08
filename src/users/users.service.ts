@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
+import { Inject, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./users.model";
 import { Repository } from "typeorm";
@@ -7,6 +7,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { FilesService } from "../files/files.service";
 import { GeneratePdfDto } from "./dto/generate-pdf.dto";
 import { UtilsService } from "../utils/utils.service";
+import { IFilesService } from "../files/interface/IFileService";
 
 @Injectable()
 export class UsersService {
@@ -14,8 +15,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private  readonly fileService:FilesService,
-    private readonly  utilService:UtilsService
+    @Inject(IFilesService)private  readonly fileService:IFilesService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
